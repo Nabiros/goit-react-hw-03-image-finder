@@ -12,19 +12,25 @@ export class Modal extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('keydown', this.onEscClick)
+        window.addEventListener('keydown', (e) => {
+        const { onclick } = this.props;
+
+            if (e.code === 'Escape') {
+            onclick();
+        }
+        })
     };
 
     componentDidUpdate() {
         console.log('modal is did update')
     };
 
-    onEscClick = (e) => {
-        const { onclick } = this.props;
-        if (e.code === 'Escape') {
-            onclick();
-        }
-    };
+    // onEscClick = (e) => {
+    //     const { onclick } = this.props;
+    //     if (e.code === 'Escape') {
+    //         onclick();
+    //     }
+    // };
 
     render() {
         const { onclick, image } = this.props;
