@@ -7,27 +7,30 @@ const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
 
-
+    
     componentDidMount() {
-        window.addEventListener('keydown', (e) => {
-        const { onClose } = this.props;
-
-            if (e.code === 'Escape') {
-                onClose();
-        }
-        })
+        window.addEventListener('keydown', this.handleKeyDown)
     };
-
+    
     componentDidUpdate() {
         console.log('modal is did update')
     };
-
-    // onEscClick = (e) => {
-    //     const { onclick } = this.props;
-    //     if (e.code === 'Escape') {
-    //         onclick();
-    //     }
-    // };
+    
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.handleKeyDown)
+    }
+    
+    handleKeyDown = e => {
+        if (e.code === 'Escape') {
+            this.props.onClose();
+        }
+    };
+    
+    handleBackdropClick = e => {
+        if (e.target === e.currentTarget) {
+            this.props.onClose();
+        }
+    };
 
     render() {
         const { onclick, image, children } = this.props;
